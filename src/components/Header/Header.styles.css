@@ -1,0 +1,36 @@
+.hide {
+    display: none;
+}
+
+.mdl-layout-title {
+    right: -50px;
+    font-size: 28px;
+}
+
+.mdl-layout__header {
+    background: #000000;
+}
+
+.nav-menu {
+    position: fixed;
+    top: 47px;
+    left: 10px;
+    z-index: 100;
+    background: white;
+    width: 50vw;
+}
+
+@media (min-width: 640px) {
+    .hide {
+        display: flex;
+    }
+
+    .show {
+        display: none;
+    }
+
+    .mdl-layout-title {
+        right: 0px;
+        font-size: 20px;
+    }
+}
