@@ -1,36 +1,18 @@
-.hide {
-    display: none;
-}
-
-.mdl-layout-title {
-    right: -50px;
-    font-size: 28px;
-}
-
-.mdl-layout__header {
-    background: #000000;
-}
-
-.nav-menu {
+.header {
     position: fixed;
-    top: 47px;
-    left: 10px;
-    z-index: 100;
-    background: white;
-    width: 50vw;
-}
+    width: 100%;
+    top: 0;
+    left: 0;
+    height: 4rem;
+    background: #cf0056;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.26);
+  }
 
-@media (min-width: 640px) {
-    .hide {
-        display: flex;
-    }
-
-    .show {
-        display: none;
-    }
-
-    .mdl-layout-title {
-        right: 0px;
-        font-size: 20px;
-    }
-}
+.header-title {
+    color: white;
+    font-family: "Roboto Slab", serif;
+    margin: 0;
+  }
