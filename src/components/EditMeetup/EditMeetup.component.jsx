@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 
 import "./EditMeetup.styles.css";
 
@@ -6,14 +7,17 @@ import Button from "../UI/Button/Button.component";
 import TextInput from "../UI/TextInput/TextInput.component";
 import Modal from "../UI/Modal/Modal.component";
 import { isNotEmpty, isValidEmail } from "../../helpers/validate";
+import { saveMeetup } from '../../redux/meetup/meetup.actions'
 
-export default class componentName extends Component {
+class EditMeetup extends Component {
   state = {
     title: "",
     subtitle: "",
     address: "",
     email: "",
     description: "",
+    imageUrl: "",
+    imageUrlValid: false,
     titleValid: false,
     subtitleValid: false,
     addressValid: false,
@@ -35,6 +39,21 @@ export default class componentName extends Component {
     );
   };
 
+  handleSubmit = () => {
+    const { title, subtitle, address, description, email, imageUrl } = this.state;
+    const meetupData = {
+      title,
+      subtitle,
+      description,
+      imageUrl,
+      address,
+      contactEmail: email
+    }
+    this.props.saveMeetup(meetupData);
+    this.props.closeEdit();
+  }
+
+  
   render() {
     const {
       title,
@@ -42,10 +61,12 @@ export default class componentName extends Component {
       address,
       email,
       description,
+      imageUrl,
       titleValid,
       subtitleValid,
       addressValid,
       emailValid,
+      imageUrlValid,
       descriptionValid
     } = this.state;
 
@@ -56,7 +77,7 @@ export default class componentName extends Component {
         title="Edit Meetup Data"
         handleClose={closeEdit}
         footer={
-          <Button disabled={!valid} type="button" onClick={this}>
+          <Button disabled={!valid} type="button" click={this.handleSubmit}>
             {" "}
             Save{" "}
           </Button>
@@ -96,6 +117,14 @@ export default class componentName extends Component {
             handleChange={this.handleChange}
           />
           <TextInput
+            id="imageUrl"
+            valid={imageUrlValid}
+            validityMessage="Please enter a valid image URL"
+            label="Image URL"
+            value={imageUrl}
+            handleChange={this.handleChange}
+          />
+          <TextInput
             id="description"
             valid={descriptionValid}
             validityMessage="Please enter a valid description."
@@ -109,3 +138,9 @@ export default class componentName extends Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  saveMeetup: (meetupData) => dispatch(saveMeetup(meetupData))
+})
+
+export default connect(null, mapDispatchToProps)(EditMeetup);

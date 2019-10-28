@@ -15,6 +15,10 @@ const transformData = data => {
   return loadedMeetups;
 };
 
+const addMeetup = (meetups, meetup) => {
+  return meetups.concat(meetup).reverse();
+}
+
 const meetupReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case meetupActionTypes.SET_INITIAL_MEETUPS:
@@ -22,6 +26,11 @@ const meetupReducer = (state = INITIAL_STATE, action) => {
         ...state,
         meetups: transformData(action.payload.meetups)
       };
+    case meetupActionTypes.ADD_NEW_MEETUP:
+      return {
+        ...state,
+        meetups: addMeetup(state.meetups, action.payload.meetup)
+      }
     default:
       return state;
   }
