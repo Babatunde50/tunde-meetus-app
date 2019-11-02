@@ -1,0 +1,40 @@
+.meetup-details section {
+  margin-top: 4rem;
+  text-align: center;
+}
+
+.meetup-details .image {
+  width: 100%;
+  height: 25rem;
+}
+
+.meetup-details img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.meetup-details .image {
+  background: #e7e7e7;
+}
+
+.meetup-details .content {
+  text-align: center;
+  width: 80%;
+  margin: auto;
+}
+
+.meetup-details h1 {
+  font-size: 2rem;
+  font-family: "Roboto Slab", sans-serif;
+  margin: 0.5rem 0;
+}
+
+.meetup-details h2 {
+  font-size: 1.25rem;
+  color: #6b6b6b;
+}
+
+.meetup-details p {
+  font-size: 1.5rem;
+}

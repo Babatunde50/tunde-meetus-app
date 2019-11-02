@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import Header from "./components/Header/Header.component";
 import Homepage from './pages/Homepage/Homepage.component';
+import MeetupDetails from './components/MeetupDetails/MeetupDetails.component'
+
 import { fetchMeetups } from './redux/meetup/meetup.actions'
 
 class App extends Component {
@@ -18,6 +20,7 @@ class App extends Component {
         <Header />
         <Switch>
           <Route exact path="/"> <Homepage /> </Route> 
+          <Route exact path="/:id"> <MeetupDetails /> </Route> 
         </Switch>
       </>
     );

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom'
 
 import "./Button.styles.css";
 
@@ -14,7 +15,7 @@ export default function Button({
   return (
     <>
       {href ? (
-        <a href={href}> {children} </a>
+        <Link className={[mode, color].join(" ")} to={href}> {children} </Link>
       ) : (
         <button
           className={[mode, color].join(" ")}

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
 import "./EditMeetup.styles.css";
 
@@ -7,7 +7,7 @@ import Button from "../UI/Button/Button.component";
 import TextInput from "../UI/TextInput/TextInput.component";
 import Modal from "../UI/Modal/Modal.component";
 import { isNotEmpty, isValidEmail } from "../../helpers/validate";
-import { saveMeetup } from '../../redux/meetup/meetup.actions'
+import { saveMeetup } from "../../redux/meetup/meetup.actions";
 
 class EditMeetup extends Component {
   state = {
@@ -25,22 +25,81 @@ class EditMeetup extends Component {
     descriptionValid: false
   };
 
+  componentDidMount() {
+    if (!this.props.meetup) return;
+    this.meetup = {...this.props.meetup}
+    const {
+      title,
+      subtitle,
+      address,
+      description,
+      contactEmail,
+      imageUrl
+    } = this.meetup;
+    this.setState(
+      {
+        title,
+        subtitle,
+        address,
+        imageUrl,
+        description,
+        email: contactEmail,
+        imageUrlValid: true,
+        titleValid: true,
+        subtitleValid: true,
+        addressValid: true,
+        emailValid: true,
+        descriptionValid: true
+      },
+      () => {
+        console.log(this.state);
+      }
+    );
+    console.log(this.state);
+  }
+
+  componentWillUnmount() {
+    this.meetup = null;
+    // console.log(this.state)
+    // this.setState({
+    //   title: "",
+    //   subtitle: "",
+    //   address: "",
+    //   email: "",
+    //   description: "",
+    //   imageUrl: "",
+    //   imageUrlValid: false,
+    //   titleValid: false,
+    //   subtitleValid: false,
+    //   addressValid: false,
+    //   emailValid: false,
+    //   descriptionValid: false
+    // }, () => {
+    //   console.log(this.state);
+    // });
+  }
+
   handleChange = event => {
     const inputName = event.target.name;
     let validate = isNotEmpty;
     if (inputName === "email") validate = isValidEmail;
     const validity = inputName + "Valid";
-
-    this.setState(
-      {
-        [inputName]: event.target.value,
-        [validity]: validate(event.target.value)
-      }
-    );
+    console.log(this.state);
+    this.setState({
+      [inputName]: event.target.value,
+      [validity]: validate(event.target.value)
+    });
   };
 
   handleSubmit = () => {
-    const { title, subtitle, address, description, email, imageUrl } = this.state;
+    const {
+      title,
+      subtitle,
+      address,
+      description,
+      email,
+      imageUrl
+    } = this.state;
     const meetupData = {
       title,
       subtitle,
@@ -48,12 +107,11 @@ class EditMeetup extends Component {
       imageUrl,
       address,
       contactEmail: email
-    }
+    };
     this.props.saveMeetup(meetupData);
     this.props.closeEdit();
-  }
+  };
 
-  
   render() {
     const {
       title,
@@ -70,8 +128,13 @@ class EditMeetup extends Component {
       descriptionValid
     } = this.state;
 
-    let { closeEdit } = this.props
-    const valid = titleValid && subtitleValid && addressValid && emailValid && descriptionValid;
+    let { closeEdit } = this.props;
+    const valid =
+      titleValid &&
+      subtitleValid &&
+      addressValid &&
+      emailValid &&
+      descriptionValid;
     return (
       <Modal
         title="Edit Meetup Data"
@@ -140,7 +203,10 @@ class EditMeetup extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  saveMeetup: (meetupData) => dispatch(saveMeetup(meetupData))
-})
+  saveMeetup: meetupData => dispatch(saveMeetup(meetupData))
+});
 
-export default connect(null, mapDispatchToProps)(EditMeetup);
+export default connect(
+  null,
+  mapDispatchToProps
+)(EditMeetup);

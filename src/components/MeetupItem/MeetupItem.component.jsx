@@ -5,11 +5,12 @@ import Button from '../UI/Button/Button.component'
 
 export default function MeetupItem({
   address,
-  contactEmail,
   description,
   imageUrl,
   subtitle,
-  title
+  title,
+  id,
+  openEdit,
 }) {
   return (
     <article className="meetup-item">
@@ -25,9 +26,9 @@ export default function MeetupItem({
         <p>{description}</p>
       </div>
       <footer className="footer">
-      <Button mode="outline" type="button"> Edit </Button>
+      <Button mode="outline" type="button"  click={ () => openEdit(id) }> Edit </Button>
       <Button mode="outline" type="button"> Favorite </Button>
-      <Button type="button"> Show Details </Button>
+      <Button href={`/${id}`}> Show Details </Button>
       </footer>
     </article>
   );
