@@ -21,7 +21,8 @@ class Homepage extends Component {
 
   handleOpenAdd = () => {
     this.setState({
-      showEdit: true
+      showEdit: true,
+      meetup: null
     });
   }
 

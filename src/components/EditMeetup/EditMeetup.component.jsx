@@ -58,27 +58,6 @@ class EditMeetup extends Component {
     console.log(this.state);
   }
 
-  componentWillUnmount() {
-    this.meetup = null;
-    // console.log(this.state)
-    // this.setState({
-    //   title: "",
-    //   subtitle: "",
-    //   address: "",
-    //   email: "",
-    //   description: "",
-    //   imageUrl: "",
-    //   imageUrlValid: false,
-    //   titleValid: false,
-    //   subtitleValid: false,
-    //   addressValid: false,
-    //   emailValid: false,
-    //   descriptionValid: false
-    // }, () => {
-    //   console.log(this.state);
-    // });
-  }
-
   handleChange = event => {
     const inputName = event.target.name;
     let validate = isNotEmpty;

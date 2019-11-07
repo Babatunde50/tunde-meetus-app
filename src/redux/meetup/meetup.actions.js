@@ -15,6 +15,14 @@ export const addNewMeetup = (meetup) => ({
     }
 })
 
+export const toggleFavourite = (id, isFav ) => ({
+    type: meetupActionTypes.TOGGLE_FAVOURITE,
+    payload: {
+        id,
+        isFav
+    }
+})
+
 export const fetchMeetups = () => {
     return async (dispatch) => {
         try {
@@ -33,6 +41,19 @@ export const saveMeetup = (meetupData) => {
             dispatch(addNewMeetup({...meetupData, isFavorite: false, id: response.data.name }));
         } catch(error) {
             console.log(error);
+        }
+    }
+}
+
+export const updateFavourite = (id, isFav) => {
+    return async(dispatch) => {
+        try {
+            //console.log(id, isFav)
+            const response = await axios.patch(`https://svelte-fa4ee.firebaseio.com/meetups/${id}.json`, {isFavorite: !isFav })
+            console.log(response.data.isFavorite);
+            dispatch(toggleFavourite(id, !isFav  ))
+        } catch(error) {
+            console.log(error)
         }
     }
 }
