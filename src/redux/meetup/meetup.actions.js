@@ -1,6 +1,17 @@
 import axios from 'axios';
 import { meetupActionTypes } from './meetup.types'
 
+export const startFetching = () => ({
+    type: meetupActionTypes.START_FETCHING
+})
+
+export const fetchingFailed = (errorMessage) => ({
+    type: meetupActionTypes.FETCHING_FAILED,
+    payload: {
+        errorMessage
+    }
+})
+
 export const setInitialMeetups = (meetups) => ({
     type: meetupActionTypes.SET_INITIAL_MEETUPS,
     payload: {
@@ -26,10 +37,12 @@ export const toggleFavourite = (id, isFav ) => ({
 export const fetchMeetups = () => {
     return async (dispatch) => {
         try {
+            dispatch(startFetching())
             const response = await axios.get('https://svelte-fa4ee.firebaseio.com/meetups.json');
             dispatch(setInitialMeetups(response.data))
         } catch(error) {
-            console.log(error);
+            console.log(error)
+            dispatch(fetchingFailed(error.message))
         }
     }
 }
@@ -37,10 +50,12 @@ export const fetchMeetups = () => {
 export const saveMeetup = (meetupData) => {
     return async (dispatch) => {
         try {
+            dispatch(startFetching())
             const response = await axios.post('https://svelte-fa4ee.firebaseio.com/meetups.json', meetupData);
             dispatch(addNewMeetup({...meetupData, isFavorite: false, id: response.data.name }));
         } catch(error) {
             console.log(error);
+            dispatch(fetchingFailed(error.message))
         }
     }
 }
@@ -54,6 +69,7 @@ export const updateFavourite = (id, isFav) => {
             dispatch(toggleFavourite(id, !isFav  ))
         } catch(error) {
             console.log(error)
+            dispatch(fetchingFailed(error.message))
         }
     }
 }

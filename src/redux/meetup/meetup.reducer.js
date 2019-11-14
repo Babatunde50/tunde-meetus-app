@@ -1,7 +1,9 @@
 import { meetupActionTypes } from "./meetup.types";
 
 const INITIAL_STATE = {
-  meetups: []
+  meetups: [],
+  isLoading: false,
+  errorMessage: ''
 };
 
 const transformData = data => {
@@ -38,18 +40,32 @@ const meetupReducer = (state = INITIAL_STATE, action) => {
     case meetupActionTypes.SET_INITIAL_MEETUPS:
       return {
         ...state,
-        meetups: transformData(action.payload.meetups)
+        meetups: transformData(action.payload.meetups),
+        isLoading: false
       };
+    case meetupActionTypes.START_FETCHING:
+        return {
+          ...state,
+          isLoading: true 
+        };
+    case meetupActionTypes.FETCHING_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        errorMessage: action.payload.errorMessage
+      }
     case meetupActionTypes.ADD_NEW_MEETUP:
       return {
         ...state,
-        meetups: addMeetup(state.meetups, action.payload.meetup)
+        meetups: addMeetup(state.meetups, action.payload.meetup),
+        isLoading: false
       };
     case meetupActionTypes.TOGGLE_FAVOURITE:
       console.log(action.payload);
       return {
         ...state,
-        meetups: toggleFav(state.meetups, action.payload.id, action.payload.isFav )
+        meetups: toggleFav(state.meetups, action.payload.id, action.payload.isFav ),
+        isLoading: false
       }
     default:
       return state;

@@ -7,9 +7,13 @@ import Button from '../UI/Button/Button.component';
 import './MeetupDetails.styles.css'
 
 class MeetupDetails extends React.Component {
+  componentDidMount() {
+    console.log('[Details] Mounts')
+  }
     render() {
         const { meetups, match } = this.props
         const selectedMeetup = meetups.find(meetup => meetup.id === match.params.id);
+        console.log(selectedMeetup)
         return (
             <div className="meetup-details">
               <section>

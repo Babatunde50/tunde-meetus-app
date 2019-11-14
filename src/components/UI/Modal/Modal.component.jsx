@@ -4,7 +4,7 @@ import Button from "../Button/Button.component";
 import "./Modal.component.jsx";
 import "./Modal.styles.css";
 
-export default ({ handleClose, title, children, footer }) => {
+export default ({ handleClose, title, children, footer = null }) => {
   return (
     <>
       <div className="modal-backdrop" onClick={handleClose}></div>
